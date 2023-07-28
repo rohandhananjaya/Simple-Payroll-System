@@ -27,9 +27,30 @@ class SimplePayroll:
         tk.Label(self.root, text='Days worked:').grid(row=3)
         tk.Entry(self.root, textvariable=self.days_var).grid(row=3, column=1)
 
-        tk.Button(self.root, text='Calculate Payroll').grid(row=4, column=1)
+        tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(row=4, column=1)
 
+    def calculate_payroll(self):
+        try:
+            name = self.name_var.get()
+            rate = float(self.rate_var.get())
+            hours = float(self.hours_var.get())
+            days = float(self.days_var.get())
 
+            gross_salary = rate * hours * days
+            tax = gross_salary * 0.15
+            philhealth = gross_salary * 0.05
+            sss = gross_salary * 0.02
+
+            net_salary = gross_salary - tax - philhealth - sss
+
+            messagebox.showinfo("Payroll", f"Gross Salary: {gross_salary}\n"
+                                           f"Deductions:\n"
+                                           f"Tax: {tax}\n"
+                                           f"Philhealth: {philhealth}\n"
+                                           f"SSS: {sss}\n"
+                                           f"Net Salary: {net_salary}")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
 if __name__ == "__main__":
     root = tk.Tk()
