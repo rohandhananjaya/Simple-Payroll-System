@@ -5,7 +5,7 @@ class SimplePayroll:
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Payroll v1.0")
-        self.root.geometry("780x400")
+        self.root.geometry("754x460")
 
         self.name_var = tk.StringVar()
         self.rate_var = tk.StringVar()
@@ -16,15 +16,15 @@ class SimplePayroll:
         self.create_table()
 
     def create_widgets(self):
-        tk.Label(self.root, text='Name of the employee:').grid(sticky = 'n',row=0)
-        tk.Entry(self.root, textvariable=self.name_var).grid(sticky = 'w' , row=0, column=1)
-        tk.Label(self.root, text='Rate per hour (Rs.):').grid(sticky = 'n',row=1)
-        tk.Entry(self.root, textvariable=self.rate_var).grid(sticky = 'w' ,row=1, column=1)
-        tk.Label(self.root, text='Hours per day:').grid(sticky = 'n',row=2)
-        tk.Entry(self.root, textvariable=self.hours_var).grid(sticky = 'w' ,row=2, column=1)
-        tk.Label(self.root, text='Days worked:').grid(sticky = 'n',row=3)
-        tk.Entry(self.root, textvariable=self.days_var).grid(sticky = 'w' ,row=3, column=1)
-        tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(sticky = 'w' ,row=4, column=1)
+        tk.Label(self.root, text='Name of the employee:').grid(sticky = 'w', padx = 10, pady = 10, row=0)
+        tk.Entry(self.root, textvariable=self.name_var).grid(sticky = 'w' , padx = 10, pady = 10, row=0, column=1)
+        tk.Label(self.root, text='Rate per hour (Rs.):').grid(sticky = 'w', padx = 10, pady = 10, row=1)
+        tk.Entry(self.root, textvariable=self.rate_var).grid(sticky = 'w' , padx = 10, pady = 10, row=1, column=1)
+        tk.Label(self.root, text='Hours per day:').grid(sticky = 'w', padx = 10, pady = 10, row=2)
+        tk.Entry(self.root, textvariable=self.hours_var).grid(sticky = 'w' , padx = 10, pady = 10, row=2, column=1)
+        tk.Label(self.root, text='Days worked:').grid(sticky = 'w', padx = 10, pady = 10, row=3)
+        tk.Entry(self.root, textvariable=self.days_var).grid(sticky = 'w' , padx = 10, pady = 10, row=3, column=1)
+        tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(sticky = 'w' , padx = 10, pady = 10, row=4, column=1)
 
     def create_table(self):
         self.table = ttk.Treeview(self.root)
@@ -45,7 +45,7 @@ class SimplePayroll:
         self.table.heading('rs', text='Retirement Savings (Rs.)', anchor=tk.CENTER)
         self.table.heading('net', text='Net Salary (Rs.)', anchor=tk.CENTER)
 
-        self.table.grid(row=5, column=0, columnspan=2)
+        self.table.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
     def calculate_payroll(self):
         try:
@@ -66,7 +66,7 @@ class SimplePayroll:
                                             f"Gross Salary: Rs.{gross_salary}\n"
                                             f"Deductions:\n"
                                             f"Tax: Rs.{tax}\n"
-                                            f"Health insurance: {healthinsure}\n"
+                                            f"Health insurance: Rs.{healthinsure}\n"
                                             f"Retirement Savings : Rs. {ret_sv}\n"
                                             f"Net Salary: Rs. {net_salary}")
 
