@@ -16,29 +16,25 @@ class SimplePayroll:
         self.create_table()
 
     def create_widgets(self):
-        tk.Label(self.root, text='Name:').grid(row=0)
+        tk.Label(self.root, text='Name of the employee:').grid(row=0)
         tk.Entry(self.root, textvariable=self.name_var).grid(row=0, column=1)
-
-        tk.Label(self.root, text='Rate per hour:').grid(row=1)
+        tk.Label(self.root, text='Rate per hour (Rs.):').grid(row=1)
         tk.Entry(self.root, textvariable=self.rate_var).grid(row=1, column=1)
-
         tk.Label(self.root, text='Hours per day:').grid(row=2)
         tk.Entry(self.root, textvariable=self.hours_var).grid(row=2, column=1)
-
         tk.Label(self.root, text='Days worked:').grid(row=3)
         tk.Entry(self.root, textvariable=self.days_var).grid(row=3, column=1)
-
         tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(row=4, column=1)
 
     def create_table(self):
         self.table = ttk.Treeview(self.root)
-        self.table['columns'] = ('name', 'gross', 'tax', 'philhealth', 'sss', 'net')
+        self.table['columns'] = ('name', 'gross', 'tax', 'philhealth', 'rs', 'net')
         self.table.column('#0', width=0, stretch=tk.NO)
         self.table.column('name', anchor=tk.CENTER, width=80)
         self.table.column('gross', anchor=tk.CENTER, width=80)
         self.table.column('tax', anchor=tk.CENTER, width=80)
         self.table.column('philhealth', anchor=tk.CENTER, width=80)
-        self.table.column('sss', anchor=tk.CENTER, width=80)
+        self.table.column('rs', anchor=tk.CENTER, width=80)
         self.table.column('net', anchor=tk.CENTER, width=80)
 
         self.table.heading('#0', text='', anchor=tk.CENTER)
@@ -46,7 +42,7 @@ class SimplePayroll:
         self.table.heading('gross', text='Gross Salary', anchor=tk.CENTER)
         self.table.heading('tax', text='Tax', anchor=tk.CENTER)
         self.table.heading('philhealth', text='Philhealth', anchor=tk.CENTER)
-        self.table.heading('sss', text='SSS', anchor=tk.CENTER)
+        self.table.heading('rs', text='Rs.', anchor=tk.CENTER)
         self.table.heading('net', text='Net Salary', anchor=tk.CENTER)
 
         self.table.grid(row=5, column=0, columnspan=2)
@@ -69,7 +65,7 @@ class SimplePayroll:
                                            f"Deductions:\n"
                                            f"Tax: {tax}\n"
                                            f"Philhealth: {philhealth}\n"
-                                           f"SSS: {sss}\n"
+                                           f"Rs.: {sss}\n"
                                            f"Net Salary: {net_salary}")
 
             self.table.insert('', 'end', values=(name, round(gross_salary, 2), round(tax, 2),
