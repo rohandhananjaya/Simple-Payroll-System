@@ -28,12 +28,12 @@ class SimplePayroll:
 
     def create_table(self):
         self.table = ttk.Treeview(self.root)
-        self.table['columns'] = ('name', 'gross', 'tax', 'philhealth', 'rs', 'net')
+        self.table['columns'] = ('name', 'gross', 'tax', 'healthinsure', 'rs', 'net')
         self.table.column('#0', width=0, stretch=tk.NO)
         self.table.column('name', anchor=tk.CENTER, width=80)
         self.table.column('gross', anchor=tk.CENTER, width=80)
         self.table.column('tax', anchor=tk.CENTER, width=80)
-        self.table.column('philhealth', anchor=tk.CENTER, width=80)
+        self.table.column('healthinsure', anchor=tk.CENTER, width=80)
         self.table.column('rs', anchor=tk.CENTER, width=80)
         self.table.column('net', anchor=tk.CENTER, width=80)
 
@@ -41,7 +41,7 @@ class SimplePayroll:
         self.table.heading('name', text='Name', anchor=tk.CENTER)
         self.table.heading('gross', text='Gross Salary', anchor=tk.CENTER)
         self.table.heading('tax', text='Tax', anchor=tk.CENTER)
-        self.table.heading('philhealth', text='Philhealth', anchor=tk.CENTER)
+        self.table.heading('healthinsure', text='Health Insurance', anchor=tk.CENTER)
         self.table.heading('rs', text='Rs.', anchor=tk.CENTER)
         self.table.heading('net', text='Net Salary', anchor=tk.CENTER)
 
@@ -56,20 +56,22 @@ class SimplePayroll:
 
             gross_salary = rate * hours * days
             tax = gross_salary * 0.15
-            philhealth = gross_salary * 0.05
+            healthinsure = gross_salary * 0.05
             sss = gross_salary * 0.02
 
-            net_salary = gross_salary - tax - philhealth - sss
+            net_salary = gross_salary - tax - healthinsure - sss
 
-            messagebox.showinfo("Payroll", f"Gross Salary: {gross_salary}\n"
-                                           f"Deductions:\n"
-                                           f"Tax: {tax}\n"
-                                           f"Philhealth: {philhealth}\n"
-                                           f"Rs.: {sss}\n"
-                                           f"Net Salary: {net_salary}")
+            messagebox.showinfo("Simple Payroll v1.0", 
+                                            f"Employee Name: {name}\n"
+                                            f"Gross Salary: Rs.{gross_salary}\n"
+                                            f"Deductions:\n"
+                                            f"Tax: Rs.{tax}\n"
+                                            f"Health insurance: {healthinsure}\n"
+                                            f"Rs.: {sss}\n"
+                                            f"Net Salary: Rs. {net_salary}")
 
             self.table.insert('', 'end', values=(name, round(gross_salary, 2), round(tax, 2),
-                                                 round(philhealth, 2), round(sss, 2), round(net_salary, 2)))
+                                                 round(healthinsure, 2), round(sss, 2), round(net_salary, 2)))
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
