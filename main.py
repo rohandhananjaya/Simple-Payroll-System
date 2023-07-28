@@ -5,12 +5,15 @@ class SimplePayroll:
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Payroll v1.0")
-        self.root.geometry("754x460")
+        self.root.geometry("780x800")
 
         self.name_var = tk.StringVar()
         self.rate_var = tk.StringVar()
         self.hours_var = tk.StringVar()
         self.days_var = tk.StringVar()
+        self.tax_var = tk.StringVar(value='0.05')
+        self.insurance_var = tk.StringVar(value='0.02')
+        self.retirement_var = tk.StringVar(value='0.1')
 
         self.create_widgets()
         self.create_table()
@@ -24,7 +27,13 @@ class SimplePayroll:
         tk.Entry(self.root, textvariable=self.hours_var).grid(sticky = 'w' , padx = 10, pady = 10, row=2, column=1)
         tk.Label(self.root, text='Days worked:').grid(sticky = 'w', padx = 10, pady = 10, row=3)
         tk.Entry(self.root, textvariable=self.days_var).grid(sticky = 'w' , padx = 10, pady = 10, row=3, column=1)
-        tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(sticky = 'w' , padx = 10, pady = 10, row=4, column=1)
+        tk.Label(self.root, text='Tax %:').grid(sticky = 'w', padx = 10, pady = 10, row=4)
+        tk.Entry(self.root, textvariable=self.tax_var).grid(sticky = 'w' , padx = 10, pady = 10, row=4, column=1)
+        tk.Label(self.root, text='Health Insurance %:').grid(sticky = 'w', padx = 10, pady = 10, row=5)
+        tk.Entry(self.root, textvariable=self.insurance_var).grid(sticky = 'w' , padx = 10, pady = 10, row=5, column=1)
+        tk.Label(self.root, text='Retirement Savings %:').grid(sticky = 'w', padx = 10, pady = 10, row=6)
+        tk.Entry(self.root, textvariable=self.retirement_var).grid(sticky = 'w' , padx = 10, pady = 10, row=6, column=1)
+        tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(sticky = 'w' , padx = 10, pady = 10, row=7, column=1)
 
     def create_table(self):
         self.table = ttk.Treeview(self.root)
@@ -45,7 +54,7 @@ class SimplePayroll:
         self.table.heading('rs', text='Retirement Savings (Rs.)', anchor=tk.CENTER)
         self.table.heading('net', text='Net Salary (Rs.)', anchor=tk.CENTER)
 
-        self.table.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+        self.table.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 
     def calculate_payroll(self):
         try:
@@ -53,11 +62,14 @@ class SimplePayroll:
             rate = float(self.rate_var.get())
             hours = float(self.hours_var.get())
             days = float(self.days_var.get())
+            tax_percent = float(self.tax_var.get()) / 100
+            insurance_percent = float(self.insurance_var.get()) / 100
+            retirement_percent = float(self.retirement_var.get()) / 100
 
             gross_salary = rate * hours * days
-            tax = gross_salary * 0.15
-            healthinsure = gross_salary * 0.05
-            ret_sv = gross_salary * 0.02
+            tax = gross_salary * tax_percent
+            healthinsure = gross_salary * insurance_percent
+            ret_sv = gross_salary * retirement_percent
 
             net_salary = gross_salary - tax - healthinsure - ret_sv
 
