@@ -1,11 +1,11 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 
 class SimplePayroll:
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Payroll v1.0")
-        self.root.geometry("400x400")
+        self.root.geometry("600x600")
 
         self.name_var = tk.StringVar()
         self.rate_var = tk.StringVar()
@@ -13,6 +13,7 @@ class SimplePayroll:
         self.days_var = tk.StringVar()
 
         self.create_widgets()
+        self.create_table()
 
     def create_widgets(self):
         tk.Label(self.root, text='Name:').grid(row=0)
@@ -28,6 +29,27 @@ class SimplePayroll:
         tk.Entry(self.root, textvariable=self.days_var).grid(row=3, column=1)
 
         tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(row=4, column=1)
+
+    def create_table(self):
+        self.table = ttk.Treeview(self.root)
+        self.table['columns'] = ('name', 'gross', 'tax', 'philhealth', 'sss', 'net')
+        self.table.column('#0', width=0, stretch=tk.NO)
+        self.table.column('name', anchor=tk.CENTER, width=80)
+        self.table.column('gross', anchor=tk.CENTER, width=80)
+        self.table.column('tax', anchor=tk.CENTER, width=80)
+        self.table.column('philhealth', anchor=tk.CENTER, width=80)
+        self.table.column('sss', anchor=tk.CENTER, width=80)
+        self.table.column('net', anchor=tk.CENTER, width=80)
+
+        self.table.heading('#0', text='', anchor=tk.CENTER)
+        self.table.heading('name', text='Name', anchor=tk.CENTER)
+        self.table.heading('gross', text='Gross Salary', anchor=tk.CENTER)
+        self.table.heading('tax', text='Tax', anchor=tk.CENTER)
+        self.table.heading('philhealth', text='Philhealth', anchor=tk.CENTER)
+        self.table.heading('sss', text='SSS', anchor=tk.CENTER)
+        self.table.heading('net', text='Net Salary', anchor=tk.CENTER)
+
+        self.table.grid(row=5, column=0, columnspan=2)
 
     def calculate_payroll(self):
         try:
@@ -49,8 +71,13 @@ class SimplePayroll:
                                            f"Philhealth: {philhealth}\n"
                                            f"SSS: {sss}\n"
                                            f"Net Salary: {net_salary}")
+
+            self.table.insert('', 'end', values=(name, round(gross_salary, 2), round(tax, 2),
+                                                 round(philhealth, 2), round(sss, 2), round(net_salary, 2)))
+
         except Exception as e:
             messagebox.showerror("Error", str(e))
+
 
 if __name__ == "__main__":
     root = tk.Tk()
