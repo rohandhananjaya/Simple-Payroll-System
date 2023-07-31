@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox, ttk
 
+DEFAULT_TAX = 0.05
+DEFAULT_INSURANCE = 0.02
+DEFAULT_RETIREMENT = 0.1
+
 class SimplePayroll:
     
     def __init__(self, root):
@@ -13,29 +17,29 @@ class SimplePayroll:
         self.rate_var = tk.StringVar()
         self.hours_var = tk.StringVar()
         self.days_var = tk.StringVar()
-        self.tax_var = tk.StringVar(value='0.05')
-        self.insurance_var = tk.StringVar(value='0.02')
-        self.retirement_var = tk.StringVar(value='0.1')
+        self.tax_var = tk.StringVar(value= str(DEFAULT_TAX))
+        self.insurance_var = tk.StringVar(value=str(DEFAULT_INSURANCE))
+        self.retirement_var = tk.StringVar(value=str(DEFAULT_RETIREMENT))
 
         self.create_widgets()
         self.create_table()
 
     def create_widgets(self):
         """Creates the widgets of the application"""
-        tk.Label(self.root, text='Name of the employee:').grid(sticky = 'w', padx = 10, pady = 10, row=0)
-        tk.Entry(self.root, textvariable=self.name_var).grid(sticky = 'w' , padx = 10, pady = 10, row=0, column=1)
-        tk.Label(self.root, text='Rate per hour (Rs.):').grid(sticky = 'w', padx = 10, pady = 10, row=1)
-        tk.Entry(self.root, textvariable=self.rate_var).grid(sticky = 'w' , padx = 10, pady = 10, row=1, column=1)
-        tk.Label(self.root, text='Hours per day:').grid(sticky = 'w', padx = 10, pady = 10, row=2)
-        tk.Entry(self.root, textvariable=self.hours_var).grid(sticky = 'w' , padx = 10, pady = 10, row=2, column=1)
+        tk.Label(self.root, text='Name of the employee:').grid(sticky = 'w', padx = 10, pady = 5, row=0)
+        tk.Entry(self.root, textvariable=self.name_var).grid(sticky = 'w' , padx = 10, pady = 5, row=0, column=1)
+        tk.Label(self.root, text='Rate per hour (Rs.):').grid(sticky = 'w', padx = 10, pady = 5, row=1)
+        tk.Entry(self.root, textvariable=self.rate_var).grid(sticky = 'w' , padx = 10, pady = 5, row=1, column=1)
+        tk.Label(self.root, text='Hours per day:').grid(sticky = 'w', padx = 10, pady = 5, row=2)
+        tk.Entry(self.root, textvariable=self.hours_var).grid(sticky = 'w' , padx = 10, pady = 5, row=2, column=1)
         tk.Label(self.root, text='Days worked:').grid(sticky = 'w', padx = 10, pady = 10, row=3)
-        tk.Entry(self.root, textvariable=self.days_var).grid(sticky = 'w' , padx = 10, pady = 10, row=3, column=1)
+        tk.Entry(self.root, textvariable=self.days_var).grid(sticky = 'w' , padx = 10, pady = 5, row=3, column=1)
         tk.Label(self.root, text='Tax %:').grid(sticky = 'w', padx = 10, pady = 10, row=4)
-        tk.Entry(self.root, textvariable=self.tax_var).grid(sticky = 'w' , padx = 10, pady = 10, row=4, column=1)
-        tk.Label(self.root, text='Health Insurance %:').grid(sticky = 'w', padx = 10, pady = 10, row=5)
-        tk.Entry(self.root, textvariable=self.insurance_var).grid(sticky = 'w' , padx = 10, pady = 10, row=5, column=1)
-        tk.Label(self.root, text='Retirement Savings %:').grid(sticky = 'w', padx = 10, pady = 10, row=6)
-        tk.Entry(self.root, textvariable=self.retirement_var).grid(sticky = 'w' , padx = 10, pady = 10, row=6, column=1)
+        tk.Entry(self.root, textvariable=self.tax_var).grid(sticky = 'w' , padx = 10, pady = 5, row=4, column=1)
+        tk.Label(self.root, text='Health Insurance %:').grid(sticky = 'w', padx = 10, pady = 5, row=5)
+        tk.Entry(self.root, textvariable=self.insurance_var).grid(sticky = 'w' , padx = 10, pady = 5, row=5, column=1)
+        tk.Label(self.root, text='Retirement Savings %:').grid(sticky = 'w', padx = 10, pady = 5, row=6)
+        tk.Entry(self.root, textvariable=self.retirement_var).grid(sticky = 'w' , padx = 10, pady = 5, row=6, column=1)
         tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(sticky = 'w' , padx = 10, pady = 10, row=7, column=1)
         tk.Button(self.root, text='Remove Item', command=self.remove_item).grid(sticky = 'w' , padx = 10, pady = 10, row=9, column=0)
         tk.Button(self.root, text='Clear Table', command=self.clear_table).grid(sticky = 'w' , padx = 10, pady = 10, row=9, column=1)
