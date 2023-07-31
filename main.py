@@ -5,7 +5,7 @@ class SimplePayroll:
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Payroll v1.0")
-        self.root.geometry("780x800")
+        self.root.geometry("753x580")
 
         self.name_var = tk.StringVar()
         self.rate_var = tk.StringVar()
@@ -84,9 +84,19 @@ class SimplePayroll:
 
             self.table.insert('', 'end', values=(name, round(gross_salary, 2), round(tax, 2),
                                                  round(healthinsure, 2), round(ret_sv, 2), round(net_salary, 2)))
+            self.clear_fields()
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
+
+    def clear_fields(self):
+        self.name_var.set('')
+        self.rate_var.set('')
+        self.hours_var.set('')
+        self.days_var.set('')
+        self.tax_var.set('0.05')
+        self.insurance_var.set('0.02')
+        self.retirement_var.set('0.1')
 
 
 if __name__ == "__main__":
