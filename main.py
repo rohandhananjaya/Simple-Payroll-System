@@ -5,7 +5,8 @@ class SimplePayroll:
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Payroll v1.0")
-        self.root.geometry("753x580")
+        self.root.geometry("753x630")
+        self.root.resizable(False, False)
 
         self.name_var = tk.StringVar()
         self.rate_var = tk.StringVar()
@@ -34,6 +35,8 @@ class SimplePayroll:
         tk.Label(self.root, text='Retirement Savings %:').grid(sticky = 'w', padx = 10, pady = 10, row=6)
         tk.Entry(self.root, textvariable=self.retirement_var).grid(sticky = 'w' , padx = 10, pady = 10, row=6, column=1)
         tk.Button(self.root, text='Calculate Payroll', command=self.calculate_payroll).grid(sticky = 'w' , padx = 10, pady = 10, row=7, column=1)
+        tk.Button(self.root, text='Remove Item', command=self.remove_item).grid(sticky = 'w' , padx = 10, pady = 10, row=9, column=0)
+        tk.Button(self.root, text='Clear Table', command=self.clear_table).grid(sticky = 'w' , padx = 10, pady = 10, row=9, column=1)
 
     def create_table(self):
         self.table = ttk.Treeview(self.root)
@@ -97,7 +100,19 @@ class SimplePayroll:
         self.tax_var.set('0.05')
         self.insurance_var.set('0.02')
         self.retirement_var.set('0.1')
-
+        
+    def remove_item(self):
+        """" Remove selected item from the table """
+        if self.table.selection():
+            selected_item = self.table.selection()[0]
+            self.table.delete(selected_item)
+        else:
+            messagebox.showerror("Error", "Please select an item to remove")
+    
+    def clear_table(self):
+        """" Remove all items from the table """
+        for item in self.table.get_children():
+            self.table.delete(item)
 
 if __name__ == "__main__":
     root = tk.Tk()
