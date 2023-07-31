@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 
 class SimplePayroll:
+    
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Payroll v1.0")
@@ -20,6 +21,7 @@ class SimplePayroll:
         self.create_table()
 
     def create_widgets(self):
+        """Creates the widgets of the application"""
         tk.Label(self.root, text='Name of the employee:').grid(sticky = 'w', padx = 10, pady = 10, row=0)
         tk.Entry(self.root, textvariable=self.name_var).grid(sticky = 'w' , padx = 10, pady = 10, row=0, column=1)
         tk.Label(self.root, text='Rate per hour (Rs.):').grid(sticky = 'w', padx = 10, pady = 10, row=1)
@@ -39,6 +41,7 @@ class SimplePayroll:
         tk.Button(self.root, text='Clear Table', command=self.clear_table).grid(sticky = 'w' , padx = 10, pady = 10, row=9, column=1)
 
     def create_table(self):
+        """Creates the table that displays the payroll of the employee"""
         self.table = ttk.Treeview(self.root)
         self.table['columns'] = ('name', 'gross', 'tax', 'healthinsure', 'rs', 'net')
         self.table.column('#0', width=0, stretch=tk.NO)
@@ -60,6 +63,7 @@ class SimplePayroll:
         self.table.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 
     def calculate_payroll(self):
+        """Calculates the payroll of the employee and displays it in the table"""
         try:
             name = self.name_var.get()
             rate = float(self.rate_var.get())
@@ -93,6 +97,7 @@ class SimplePayroll:
             messagebox.showerror("Error", str(e))
 
     def clear_fields(self):
+        """" Clear all input fields """
         self.name_var.set('')
         self.rate_var.set('')
         self.hours_var.set('')
